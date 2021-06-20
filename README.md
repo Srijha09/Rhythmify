@@ -1,1 +1,1 @@
-# Spotly---Spotify-Recommendation-System
+# Rythymify--Spotify-Music Analytics
