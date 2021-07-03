@@ -1,0 +1,46 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+  <br>
+  <br>
+<!---MAIN BODY--->
+<h3>THESE ARE YOUR TOP TIME FAVOURITE ALBUMS</h3>
+<br>
+<br>
+ <div class="row p-4">
+   <div class="card bg-dark m-auto" >
+      <div class="card-body" >
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+        <div id="chart3"></div>
+      </div>
+   </div>
+  </div>
+
+<!-- plotly CDN -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+  var graph1 = {{graph7JSON | safe}};
+  Plotly.plot('chart1', graph1,{});         
+</script>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}

@@ -1,1 +1,1 @@
-# Rhythmify--Spotify-Music Analytics
+# Rhythmify--Spotify-Music-Analytics

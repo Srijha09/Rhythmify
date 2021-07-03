@@ -1,0 +1,43 @@
+{% extends "recommend_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+  <br>
+  <br>
+<!---MAIN BODY--->
+<div class="row-full">
+  <div class ="center">
+    <h4 font-weight: bold>Here are your community recommendations of artists and songs</h4>
+    <br>
+    <h3 font-weight: bold>PLEASE CLICK ON ANY OF THE OPTIONS TO CHOOSE YOUR RECOMMENDATIONS</h3>
+    <br>
+    <br>
+    <br>
+    <form action="{{ url_for('usergenre') }}" method="GET" class="inline">
+      <button class="btn btn1" id="typewriter">ARTISTS</button>
+    </form>
+    <form action="{{ url_for('usertoptracks') }}" method="GET" class="inline">
+      <button class="btn btn2" id="typewriter">SONGS</button>
+    </form>
+ </div>
+</div>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}

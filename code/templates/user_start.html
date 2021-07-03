@@ -1,0 +1,49 @@
+{% extends "user_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+  <br>
+  <br>
+<!---MAIN BODY--->
+<div class="row-full">
+  <div class ="center">
+    <h4 font-weight: bold>Do you want to find out your music taste based on your Spotify music?</h4>
+    <br>
+    <h3 font-weight: bold>PLEASE CLICK ON ANY OF THE OPTIONS TO CHOOSE WHAT YOU WANT TO ANALYZE</h3>
+    <br>
+    <br>
+    <br>
+    <form action="{{ url_for('usergenre') }}" method="GET" class="inline">
+      <button class="btn btn1" id="typewriter">TOP GENRES</button>
+    </form>
+    <form action="{{ url_for('usertoptracks') }}" method="GET" class="inline">
+      <button class="btn btn2" id="typewriter">TOP TRACKS</button>
+    </form>
+    <form action="{{ url_for('usertopartists') }}" method="GET" class="inline">
+      <button class="btn btn3" id="typewriter">TOP ARTISTS</button>
+    </form>
+    <form action="{{ url_for('usertopalbums') }}" method="GET" class="inline">
+      <button class="btn btn4" id="typewriter">TOP ALBUMS</button>
+    </form>
+ </div>
+</div>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}

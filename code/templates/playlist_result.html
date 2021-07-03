@@ -1,0 +1,50 @@
+{% extends "playlist_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body class="text-break" style="background-color:rgb(0, 0, 0);">
+  <div class="topnav" id="myTopnav">
+   <a href="{{ url_for('home') }}">HOME</a>
+  </div>
+  <br>
+  <div class="container text-center">
+    <h4>This is the new playlist we created for you based on your selected tracks and preferences</h4>
+ </div>
+
+<ul class="list-group">
+    {% for track in data %}
+        {% set track_id = track["id"] %}
+        {% set artist_name = track["artists"][0]["name"] %}
+        {% set track_name = track["name"] %}
+        {% set track_image_url = track["album"]["images"][2]["url"] %}
+
+        <li class="list-group-item list-group-item d-flex justify-content-between align-items-center track"
+            value="{{ track_id }}">
+            <span>{{ artist_name }} - {{ track_name }}</span>
+            <div>
+                <img src="{{ track_image_url }}" style="max-width: 47px;" alt="">
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+<br>
+<div>
+    <h5 class="text-center text-white">Give a name to your new playlist:</h5>
+</div>
+<br>
+<div class="text-center"
+     style="text-align: center;margin: 17px 20% 50px;">
+    <form action="/save-playlist" method="POST">
+        <div class="text-center">
+            <input type="text" id="playlist_name_input" name="playlist_name" value="">
+        </div>
+        <br>
+        <button class="button button1" id="save-playlist-btn" type="submit">
+            SAVE PLAYLIST
+        </button>
+    </form>
+</div>
+</body>
+
+{% endblock %}

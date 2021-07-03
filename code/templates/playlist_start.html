@@ -1,0 +1,38 @@
+{% extends "playlist_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+<!---MAIN BODY--->
+<div class="container">
+  <div class ="center">
+    <h4 font-weight: bold>Want to get a new playlist based on your music taste?</h3>
+    <br>
+    <h1 font-weight: bold>GENERATE A PLAYLIST</h1>
+    <br>
+    <br>
+    <br>
+    <form action="{{ url_for('playlist_loading') }}" method="GET">
+      <button class="button button1" id="typewriter">CLICK HERE</button>
+    </form>
+ </div>
+</div>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}

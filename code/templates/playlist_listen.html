@@ -1,0 +1,33 @@
+{% extends "playlist_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body class="text-break" style="background-color:rgb(0, 0, 0);">
+  <div class="topnav" id="myTopnav">
+   <a href="{{ url_for('home') }}">.</a>
+  </div>
+  <br>
+  <br>
+  <div class="container text-center">
+    <h3>Listen to your new playlist </h4>
+ </div>
+
+<div class="text-center" style="text-align: center;margin: 17px 20% 50px;">
+    <iframe src="https://open.spotify.com/embed/playlist/{{ playlist_id }}" width="350" height="400"
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+<form action="{{ url_for('home') }}" method="GET">
+    <button class="button button1" id="typewriter">GO BACK HOME</button>
+</form>
+
+<script>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        // You can now initialize Spotify.Player and use the SDK
+    };
+</script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+
+</body>
+
+{% endblock %}
