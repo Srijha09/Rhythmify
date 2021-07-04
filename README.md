@@ -14,9 +14,21 @@ For more details on the API reference end-points please have a look at: https://
 
 
 
+
+
+
+
+
+
+
+### References:
+1. https://github.com/AcrobaticPanicc/Spotify-Playlist-Generator1/tree/master/app
+2. https://github.com/Deffro/statify
+
 Todo:
 - recommend artists and songs
 - rectify the bug in dashboard
 - build flask blueprints and perform cron jobs using MongoDB
 - deploy it on heroku
 - containerize in Docker
+
