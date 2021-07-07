@@ -46,7 +46,7 @@ def df_user_top_tracks(data):
     album_name, album_release_date, album_image_url = [], [], []
     album_external_url, album_total_tracks = [], []
     song_external_url, song_name, song_popularity = [], [], []
-    song_preview_url, song_number_in_album = [], []
+    song_duration, song_preview_url, song_number_in_album = [], [], []
 
     for track in data['items']:
         artist_external_url.append(track['album']['artists'][0]['external_urls']['spotify'])
@@ -65,6 +65,7 @@ def df_user_top_tracks(data):
         song_external_url.append(track['external_urls']['spotify'])
         song_name.append(track['name'])
         song_popularity.append(track['popularity'])
+        song_duration.append(track['duration_ms'])
         song_preview_url.append(track['preview_url'])
         song_number_in_album.append(track['track_number'])
 
@@ -74,6 +75,7 @@ def df_user_top_tracks(data):
                  'album_total_tracks', 'album_image_url', 'album_external_url', 'artist_name',
                  'artist_external_url'])
     user_top_track_data['song_name'] = song_name
+    user_top_track_data['song_duration'] = song_duration
     user_top_track_data['song_popularity'] = song_popularity
     user_top_track_data['song_number_in_album'] = song_number_in_album
     user_top_track_data['song_external_url'] = song_external_url

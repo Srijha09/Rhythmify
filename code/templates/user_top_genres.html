@@ -23,16 +23,20 @@
       </div>
    </div>
   </div>
-
+  <br>
+  <br>
+  <form action="{{ url_for('userstart') }}" method="GET">
+    <button class="button button1" id="typewriter">GO BACK</button>
+</form>
 <!-- plotly CDN -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript">
   var graph1 = {{graph1JSON | safe}};
   Plotly.plot('chart1', graph1,{});
-  // var graph1 = {{graph2JSON | safe}};
-  // Plotly.plot('chart2', graph1,{});
-  // var graph1 = {{graph3JSON | safe}};
-  // Plotly.plot('chart3', graph1,{});         
+  var graph1 = {{graph2JSON | safe}};
+  Plotly.plot('chart2', graph1,{});
+  var graph1 = {{graph3JSON | safe}};
+  Plotly.plot('chart3', graph1,{});         
 </script>
 
 <script>

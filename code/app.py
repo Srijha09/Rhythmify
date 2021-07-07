@@ -215,83 +215,50 @@ def result_songs():
 
 
 #--------------------------------USER DASHBOARD PAGES----------------------------------
-@app.route('/userstart')
+@app.route('/userstart', methods = ['GET', 'POST'])
 def userstart():
-    return render_template('user_start.html')
+    if request.method=='GET':
+        return render_template('user_start.html')
 
-@app.route('/usergenre')
+@app.route('/usergenre', methods = ['GET', 'POST'])
 def usergenre():
-    authorization_header = session['authorization_header']
-    
 
-    def df_get_user_top_track_artists(authorization_header,entity_type="artists", time_range="medium_term"):
-        """
-        :return a pandas DataFrame
-        """
-        total_top_entity = spotify_client.get_user_top_tracks_artists(authorization_header, entity_type=entity_type, limit=1,time_range=time_range, offset=0)["total"]
-        print(total_top_entity)
-        user_top_entity_data = pd.DataFrame()
-        for i in range(int(total_top_entity/50)+1):
-            temp_json = spotify_client.get_user_top_tracks_artists(authorization_header,entity_type=entity_type, limit=50,
-                                                             time_range=time_range, offset=i*50)
-            if entity_type == "artists":
-                temp = us.df_user_top_artists(temp_json)
-            else:
-                temp = us.df_user_top_tracks(temp_json)
-            user_top_entity_data = pd.concat([user_top_entity_data, temp])
-        return user_top_entity_data
-    
+    authorization_header = session['authorization_header']
+
    
-    user_top_artists_short_term = df_get_user_top_track_artists(authorization_header, entity_type="artists", time_range="short_term")
-    # user_top_artists_medium_term = spotify_client.df_get_user_top_track_artists(entity_type="artists", time_range="medium_term")
-    # user_top_artists_long_term = spotify_client.df_get_user_top_track_artists(entity_type="artists", time_range="long_term")
+    user_top_artists_short_term = spotify_client.df_get_user_top_track_artists(authorization_header,"artists","short_term")
+    user_top_artists_medium_term = spotify_client.df_get_user_top_track_artists(authorization_header,"artists","medium_term")
+    user_top_artists_long_term = spotify_client.df_get_user_top_track_artists(authorization_header,"artists","long_term")
 
     top_genres_artist_short_term = us.top_genres(user_top_artists_short_term)
-    # top_genres_artist_medium_term = us.top_genres(user_top_artists_medium_term)
-    # top_genres_artist_long_term = us.top_genres(user_top_artists_long_term)
+    top_genres_artist_medium_term = us.top_genres(user_top_artists_medium_term)
+    top_genres_artist_long_term = us.top_genres(user_top_artists_long_term)
 
     top_genres_sunburst_data_short_artists = us.create_sunburst_data_artist(user_top_artists_short_term, top_genres_artist_short_term)
-    # top_genres_sunburst_data_medium_artists = us.create_sunburst_data_artist(user_top_artists_medium_term, top_genres_artist_medium_term)
-    # top_genres_sunburst_data_long_artists = us.create_sunburst_data_artist(user_top_artists_long_term, top_genres_artist_long_term)
+    top_genres_sunburst_data_medium_artists = us.create_sunburst_data_artist(user_top_artists_medium_term, top_genres_artist_medium_term)
+    top_genres_sunburst_data_long_artists = us.create_sunburst_data_artist(user_top_artists_long_term, top_genres_artist_long_term)
 
     fig_1_1 = us.plot_artist_sunburst(top_genres_sunburst_data_short_artists, title='Last few months')
-    # fig_1_2 = us.plot_artist_sunburst(top_genres_sunburst_data_medium_artists,title = 'Last 6 months')
-    # fig_1_3 = us.plot_artist_sunburst(top_genres_sunburst_data_long_artists, title='All Time')
+    fig_1_2 = us.plot_artist_sunburst(top_genres_sunburst_data_medium_artists,title = 'Last 6 months')
+    fig_1_3 = us.plot_artist_sunburst(top_genres_sunburst_data_long_artists, title='All Time')
 
 
-    graph1JSON = json.dumps(fig_1_1,title='Last few months', cls=py.utils.PlotlyJSONEncoder)
-    # graph2JSON = json.dumps(fig_1_2,title='Last 6 months', cls=py.utils.PlotlyJSONEncoder)
-    # graph3JSON = json.dumps(fig_1_3, title='All Time', cls=py.utils.PlotlyJSONEncoder)
-    return render_template('user_top_genres.html', graph1JSON=graph1JSON)
+    graph1JSON = json.dumps(fig_1_1, cls=py.utils.PlotlyJSONEncoder)
+    graph2JSON = json.dumps(fig_1_2, cls=py.utils.PlotlyJSONEncoder)
+    graph3JSON = json.dumps(fig_1_3, cls=py.utils.PlotlyJSONEncoder)
+    return render_template('user_top_genres.html', graph1JSON=graph1JSON,graph2JSON=graph2JSON,graph3JSON=graph3JSON)
 
    
 
 @app.route('/usertoptracks')
 def usertoptracks():
     authorization_header = session['authorization_header']
-    def df_get_user_top_track_artists(authorization_header,entity_type="artists", time_range="medium-term"):
-        """
-        :return a pandas DataFrame
-        """
-        total_top_entity = spotify_client.get_user_top_tracks_artists(authorization_header, entity_type=entity_type, limit=1,time_range=time_range, offset=0)["total"]
-        print(total_top_entity)
-        user_top_entity_data = pd.DataFrame()
-        for i in range(int(total_top_entity/50)+1):
-            temp_json = spotify_client.get_user_top_tracks_artists(authorization_header,entity_type=entity_type, limit=50,
-                                                             time_range=time_range, offset=i*50)
-            if entity_type == "artists":
-                temp = us.df_user_top_artists(temp_json)
-            else:
-                temp = us.df_user_top_tracks(temp_json)
-            user_top_entity_data = pd.concat([user_top_entity_data, temp])
-        return user_top_entity_data
 
-    user_top_tracks_long_term = df_get_user_top_track_artists(authorization_header,entity_type="tracks", time_range="long_term")
-    user_top_tracks_medium_term = df_get_user_top_track_artists(authorization_header, entity_type="tracks", time_range="medium_term")
-    user_top_tracks_short_term = df_get_user_top_track_artists(authorization_header, entity_type="tracks", time_range="short_term")
+    user_top_tracks_medium_term = spotify_client.df_get_user_top_track_artists(authorization_header,"tracks","medium_term")
 
-    user_top_all_tracks = pd.concat(user_top_tracks_short_term,user_top_tracks_medium_term,user_top_tracks_long_term)
-    fig = ff.create_table(user_top_all_tracks)
+    user_top_tracks_medium_term = user_top_tracks_medium_term[['song_name','artist_name','album_name']]
+    #user_top_all_tracks = pd.concat([user_top_tracks_short_term,user_top_tracks_medium_term,user_top_tracks_long_term], axis=1)
+    fig = ff.create_table(user_top_tracks_medium_term)
     
     graph4JSON = json.dumps(fig, cls=py.utils.PlotlyJSONEncoder)
 
@@ -301,68 +268,35 @@ def usertoptracks():
 @app.route('/usertopartists')
 def usertopartists():
     authorization_header = session['authorization_header']
-    def df_get_user_top_track_artists(authorization_header,entity_type="artists", time_range="medium-term"):
-        """
-        :return a pandas DataFrame
-        """
-        total_top_entity = spotify_client.get_user_top_tracks_artists(authorization_header, entity_type=entity_type, limit=1,time_range=time_range, offset=0)["total"]
-        print(total_top_entity)
-        user_top_entity_data = pd.DataFrame()
-        for i in range(int(total_top_entity/50)+1):
-            temp_json = spotify_client.get_user_top_tracks_artists(authorization_header,entity_type=entity_type, limit=50,
-                                                             time_range=time_range, offset=i*50)
-            if entity_type == "artists":
-                temp = us.df_user_top_artists(temp_json)
-            else:
-                temp = us.df_user_top_tracks(temp_json)
-            user_top_entity_data = pd.concat([user_top_entity_data, temp])
-        return user_top_entity_data
 
-    user_top_artists_short_term = df_get_user_top_track_artists(authorization_header, entity_type="artists", time_range="short_term")
-    user_top_artists_medium_term = df_get_user_top_track_artists(authorization_header, entity_type="artists", time_range="medium_term")
-    user_top_artists_long_term = df_get_user_top_track_artists(authorization_header, entity_type="artists", time_range="long_term") 
-    user_top_all_artists = pd.concat(user_top_artists_short_term,user_top_artists_medium_term,user_top_artists_long_term)
-
-    fig = ff.create_table(user_top_all_artists)
+    
+    user_top_artists_medium_term = spotify_client.df_get_user_top_track_artists(authorization_header,"artists","medium_term")
+    user_top_artists_medium_term = user_top_artists_medium_term[['name','followers','popularity','genres']]
+    fig = ff.create_table(user_top_artists_medium_term)
     graph6JSON = json.dumps(fig, cls=py.utils.PlotlyJSONEncoder)
     return render_template('user_top_artists.html', graph6JSON=graph6JSON)
 
-@app.route('/usertopalbums')
-def usertopalbums():
+@app.route('/viz')
+def viz():
     authorization_header = session['authorization_header']
-    def df_get_user_top_track_artists(authorization_header,entity_type="artists", time_range="medium-term"):
-        """
-        :return a pandas DataFrame
-        """
-        total_top_entity = spotify_client.get_user_top_tracks_artists(authorization_header, entity_type=entity_type, limit=1,time_range=time_range, offset=0)["total"]
-        print(total_top_entity)
-        user_top_entity_data = pd.DataFrame()
-        for i in range(int(total_top_entity/50)+1):
-            temp_json = spotify_client.get_user_top_tracks_artists(authorization_header,entity_type=entity_type, limit=50,
-                                                             time_range=time_range, offset=i*50)
-            if entity_type == "artists":
-                temp = us.df_user_top_artists(temp_json)
-            else:
-                temp = us.df_user_top_tracks(temp_json)
-            user_top_entity_data = pd.concat([user_top_entity_data, temp])
-        return user_top_entity_data
 
-    user_top_tracks_long_term = df_get_user_top_track_artists(authorization_header, entity_type="tracks", time_range="long_term")
-    user_top_tracks_medium_term = df_get_user_top_track_artists(authorization_header, entity_type="tracks", time_range="medium_term")
-    user_top_tracks_short_term = df_get_user_top_track_artists(authorization_header, entity_type="tracks", time_range="short_term")
-
-    user_top_all_tracks = pd.concat(user_top_tracks_short_term,user_top_tracks_medium_term,user_top_tracks_long_term)
-    user_top_albums = user_top_all_tracks.groupby('album_name')['song_name'].count().to_frame().reset_index().sort_values(by='song_name', ascending=False).head()
-    user_top_albums = user_top_albums.merge(user_top_all_tracks.drop(['song_name'], axis=1),
-                                            how='left', on='album_name')[['album_name', 'artist_name', 'song_name']]
-    user_top_albums = user_top_albums.rename(
-        columns={'album_name': 'Album', 'artist_name': 'Artist',
-                 'song_name': 'Tracks'}).drop_duplicates()
-
-    fig = ff.create_table(user_top_albums)
-    graph7JSON = json.dumps(fig, cls=py.utils.PlotlyJSONEncoder)
     
-    return render_template('user_top_genres.html', graph7JSON=graph7JSON)
+    user_top_tracks = spotify_client.df_get_user_top_track_artists(authorization_header,"tracks","long_term")
+
+    fig = px.scatter(user_top_tracks, x='album_release_date', y="song_popularity",
+                     size="song_duration", color="artist_name",
+                     hover_name="song_name", size_max=50)
+    fig.update_layout(yaxis=dict(gridcolor='#DFEAF4'),
+                      xaxis=dict(gridcolor='#DFEAF4'), plot_bgcolor='white',
+                      legend=dict(
+                          xanchor='center',
+                          yanchor='top',
+                          y=-0.3,
+                          x=0.5,
+                          orientation='h')
+                      )
+    graph7JSON = json.dumps(fig, cls=py.utils.PlotlyJSONEncoder)
+    return render_template('viz.html', graph7JSON=graph7JSON)
 
 
 

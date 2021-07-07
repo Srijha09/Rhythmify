@@ -120,8 +120,10 @@ class SpotifyClient:
                 'track_id': track['track']['id']
             } for track in tracks
         ]
-    
-    def get_user_top_tracks_artists(auth_header, entity_type="artists",limit=50,time_range="medium_term", offset=0):
+
+    # For User Dashboard
+
+    def get_user_top_tracks_artists(self,auth_header,entity_type,limit,time_range, offset):
         """
         :param entity_type:  artists or tracks
         :param limit: The number of entities to return. Limit is 50
@@ -136,25 +138,20 @@ class SpotifyClient:
         track_artists = json.loads(requests.get(endpoint, headers=auth_header).text)
         print(track_artists)
         return track_artists
-
     
-
-    # def get_user_saved_albums(auth_header, limit=50, offset=0):
-    #     """
-    #     :param limit: The number of entities to return. Limit is 50
-    #     :return: json text
-    #     """
-    #     endpoint = f"https://api.spotify.com/v1/me/albums/?limit={limit}&offset={offset}"
-    #     saved_albums = json.loads(requests.get(endpoint, headers=auth_header).text)
-    #     return saved_albums
-
-    # def get_user_saved_tracks(auth_header, limit=50, offset=0):
-    #     """
-    #     :param limit: The number of entities to return. Limit is 50
-    #     :return: json text
-    #     """
-    #     endpoint = f"https://api.spotify.com/v1/me/tracks/?limit={limit}&offset={offset}"
-    #     saved_tracks = json.loads(requests.get(endpoint, headers=auth_header).text)
-    #     return saved_tracks
-    
+    def df_get_user_top_track_artists(self,auth_header,entity_type,time_range):
+        """
+        :return a pandas DataFrame
+        """
+        total_top_entity = self.get_user_top_tracks_artists(auth_header,entity_type,1,time_range,0)["total"]
+        print(total_top_entity)
+        user_top_entity_data = pd.DataFrame()
+        for i in range(int(total_top_entity/50)+1):
+            temp_json = self.get_user_top_tracks_artists(auth_header,entity_type,50,time_range,i*50)
+            if entity_type == "artists":
+                temp = us.df_user_top_artists(temp_json)
+            else:
+                temp = us.df_user_top_tracks(temp_json)
+            user_top_entity_data = pd.concat([user_top_entity_data, temp])
+        return user_top_entity_data
     
