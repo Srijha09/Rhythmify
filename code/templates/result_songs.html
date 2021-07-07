@@ -1,0 +1,45 @@
+{% extends "recommend_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+<br>
+<br>
+<br>
+<!---MAIN BODY--->
+<div class="row-full">
+  <div class ="center">
+    <h3 font-weight: bold>GREAT! SO THESE ARE YOUR NEW SONG RECOMMENDATIONS</h3>
+    <br>
+        {% for r in results %}
+        <h5>{{ r }} </h5>
+        {% endfor %}
+    <br>
+    <br>
+    <h4>WANT MORE RECOMMENDATIONS?</h4>
+    <br>
+    <form action="{{ url_for('recommend_songs') }}" method="GET">
+        <button class="button button1" id="typewriter">CLICK HERE</button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 #Flask imports
+import flask
 from flask import Flask,Blueprint,request, url_for, session, redirect, render_template
 import plotly as py
 from plotly.subplots import make_subplots
@@ -6,17 +7,19 @@ import plotly.graph_objs as go
 import plotly_express as px
 import plotly.figure_factory as ff
 import pandas as pd
+import pickle
+#Flask forms
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 #script imports
 from helper.spotifyclient import SpotifyClient
 import helper.user_data as us
 #spotify imports
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
 import time
 import config
 import json
 import requests
-
 
 
 app = Flask(__name__)
@@ -161,12 +164,54 @@ def save_playlist():
 
     return render_template('playlist_listen.html', playlist_id=playlist_id)
 
-#--------------------------------RECOMMENDATIONS PAGES---------------------------------
-@app.route('/recommendstart')
-def recommendstart():
-    return render_template('recommend_start.html')
-    
 
+#--------------------------------RECOMMENDATIONS PAGES---------------------------------
+
+@app.route('/recommendstart',methods=['GET', 'POST'])
+def recommendstart():
+    if request.method=='GET':
+        return render_template('recommend_start.html')
+
+@app.route('/recommend_artists', methods=['GET','POST'])
+def recommend_artists():
+    if request.method=='GET':
+        return render_template('recommend_artists.html')
+
+@app.route('/result_artists', methods=['GET','POST'])
+def result_artists():
+    results = pickle.load(open('code/notebooks/cos_sim_results', 'rb'))
+    def recommend_artist(item_id, num):
+        recs = results[item_id][:num]
+        print(recs)
+        preds = {}
+        for pair in recs:
+            preds[pair[1]] = pair[0]
+        return preds
+    
+    artist = request.form.get('inputartist')
+    res = list(recommend_artist(artist,10).keys())                                                                                                                                                                                                                                                                         
+    return render_template('result_artists.html', res=res)
+   
+    
+# For songs 
+@app.route('/recommend_songs', methods=['GET','POST'])
+def recommend_songs():
+    if request.method=='GET':
+        return render_template('recommend_songs.html')
+
+@app.route('/result_songs', methods=['GET','POST'])
+def result_songs():
+    results1 = pickle.load(open('code/notebooks/cos_sim_results_songs', 'rb'))
+    def recommend_songs(item_id, num):
+        recs = results1[item_id][:num]   
+        print(recs)
+        preds = {}
+        for pair in recs:
+            preds[pair[1]] = pair[0]
+        return preds
+    songs = request.form.get('inputsong')
+    results = list(recommend_songs(songs,10).keys()) 
+    return render_template('result_songs.html', results=results)
 
 
 #--------------------------------USER DASHBOARD PAGES----------------------------------
@@ -325,3 +370,12 @@ def usertopalbums():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # results = pickle.load(open('code/notebooks/cos_sim_results', 'rb'))
+    # def recommend_artist(item_id, num=15):
+    #     recs = results[item_id][:num]   
+    #     preds = {}
+    #     for pair in recs:
+    #         preds[pair[1]] = pair[0]
+    #     return preds
+    # print(list(recommend_artist('Drake',15).keys()))
+    

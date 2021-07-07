@@ -1,0 +1,38 @@
+{% extends "recommend_base.html" %}
+{% block content %}
+
+<!---BODY INFO--->
+<!---NAV BAR--->
+<body style="background-color:rgb(0, 0, 0);">
+   <div class="topnav" id="myTopnav">
+    <a href="{{ url_for('home') }}">HOME</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+<!---MAIN BODY--->
+<div class="row-full">
+  <div class ="center">
+    <h3 font-weight: bold>PLEASE ENTER THE ARTIST OF YOUR CHOICE FOR RECOMMENDATIONS</h3>
+    <br>
+    <div class="form-group mt-5">
+        <form action="{{ url_for('result_artists') }}" method="POST">
+            <input type="text" class="form-control" name="inputartist" placeholder="Artist" required>
+            <br>
+            <button class="bttn bttn1" type="submit">SUBMIT</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+
+</body>
+
+{% endblock %}
