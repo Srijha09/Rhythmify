@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import plotly as py
 import plotly.graph_objs as go
-import plotly_express as px
+import plotly.express as px
 
 
 def df_user_top_artists(data):
