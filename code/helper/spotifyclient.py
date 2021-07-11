@@ -136,7 +136,7 @@ class SpotifyClient:
         """
         endpoint = f"https://api.spotify.com/v1/me/top/{entity_type}?time_range={time_range}&limit={limit}&offset={offset}"
         track_artists = json.loads(requests.get(endpoint, headers=auth_header).text)
-        print(track_artists)
+        #print(track_artists)
         return track_artists
     
     def df_get_user_top_track_artists(self,auth_header,entity_type,time_range):
@@ -144,7 +144,7 @@ class SpotifyClient:
         :return a pandas DataFrame
         """
         total_top_entity = self.get_user_top_tracks_artists(auth_header,entity_type,1,time_range,0)["total"]
-        print(total_top_entity)
+        #print(total_top_entity)
         user_top_entity_data = pd.DataFrame()
         for i in range(int(total_top_entity/50)+1):
             temp_json = self.get_user_top_tracks_artists(auth_header,entity_type,50,time_range,i*50)

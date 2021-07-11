@@ -9,12 +9,14 @@
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
   </div>
 <br>
-<br>
-<br>
 <!---MAIN BODY--->
+<h3 font-weight: bold>GREAT! SO THESE ARE YOUR NEW ARTIST RECOMMENDATIONS</h3>
+<br>
+<br>
+<br>
+<br>
 <div class="row-full">
   <div class ="center">
-    <h3 font-weight: bold>GREAT! SO THESE ARE YOUR NEW ARTIST RECOMMENDATIONS</h3>
     <br>
         {% for r in res %}
         <h5>{{ r }} </h5>
@@ -26,7 +28,13 @@
     <form action="{{ url_for('recommend_artists') }}" method="GET">
         <button class="button button1" id="typewriter">CLICK HERE</button>
     </form>
-
+    <br>
+    <br>
+    <br>
+    <form action="{{ url_for('recommendstart') }}" method="GET">
+      <button class="button button1" id="typewriter">GO BACK</button>
+    </form>
+    
   </div>
 </div>
 

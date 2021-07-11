@@ -1,4 +1,5 @@
 #Flask imports
+import os
 import flask
 from flask import Flask,Blueprint,request, url_for, session, redirect, render_template
 import plotly as py
@@ -8,10 +9,6 @@ import plotly_express as px
 import plotly.figure_factory as ff
 import pandas as pd
 import pickle
-#Flask forms
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
 #script imports
 from helper.spotifyclient import SpotifyClient
 import helper.user_data as us
@@ -303,13 +300,7 @@ def viz():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # results = pickle.load(open('code/notebooks/cos_sim_results', 'rb'))
-    # def recommend_artist(item_id, num=15):
-    #     recs = results[item_id][:num]   
-    #     preds = {}
-    #     for pair in recs:
-    #         preds[pair[1]] = pair[0]
-    #     return preds
-    # print(list(recommend_artist('Drake',15).keys()))
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="127.0.0.1", debug=True, use_reloader=True)
+   
     
