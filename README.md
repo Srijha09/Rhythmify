@@ -7,9 +7,15 @@ Rhythmify is a music analytics Flask web application that leverages the Spotify 
 - Playlist Generator using Spotify API
 
 ### Demo of the application
+
 1. Authorization into Spotify Account:
 For this, it is required to create an account in Spotify Web API and get a Client_ID and Client_Secret_Key, additionally update the redirect URI including the port in the Spotify API user dashboard. For more details on the authorization procedure, please have a look at : https://developer.spotify.com/documentation/web-api/quick-start/
 For more details on the API reference end-points please have a look at: https://developer.spotify.com/documentation/web-api/reference/
+![Authorization](demo/authorize.gif)
+
+2. Playlist Generator:
+I had incorporated Spotify-API and used the playlist API endpoints to extract my playlist data. Once the playlist is displayed, a new playlist can be generated based on the few tracks selected from the previously saved playlists. I had used the recommendation function provided by the Spotify API to generate the new playlist.
+![Playlist Generator](demo/playlist.gif)
 
 
 
