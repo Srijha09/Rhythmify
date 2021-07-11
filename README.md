@@ -38,6 +38,10 @@ Similarily, for songs I had used the same technique, but this time I created a t
 - Visualization: Plotly
 - Deployment: Heroku
 
+### Code Improvements (In progress)
+- Create Flask Blueprints 
+- Lyric2Vec and Audio Modelling Recommendation system
+- Mood Based Song Prediction
 
 
 
