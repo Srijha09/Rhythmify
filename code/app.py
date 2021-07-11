@@ -5,7 +5,7 @@ from flask import Flask,Blueprint,request, url_for, session, redirect, render_te
 import plotly as py
 from plotly.subplots import make_subplots
 import plotly.graph_objs as go
-import plotly_express as px
+import plotly.express as px
 import plotly.figure_factory as ff
 import pandas as pd
 import pickle
