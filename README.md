@@ -32,11 +32,11 @@ Similarily, for songs I had used the same technique, but this time I created a t
 
 5. Application Stack
 
-Backend: Flask
-API used: Spotify-API
-Frontend: HTML, CSS
-Visualization: Plotly
-Deployment: Heroku
+- Backend: Flask
+- API used: Spotify-API
+- Frontend: HTML, CSS
+- Visualization: Plotly
+- Deployment: Heroku
 
 
 
