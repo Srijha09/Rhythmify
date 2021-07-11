@@ -76,7 +76,6 @@ packaging==20.9
 pandas==1.2.4
 pep8==1.7.1
 pickleshare==0.7.5
-Pillow==7.1.2
 plotly==4.14.3
 praw==7.2.0
 prawcore==2.0.0
@@ -88,7 +87,6 @@ spotipy==2.18.0
 statsmodels==0.12.2
 tqdm==4.41.0
 update-checker==0.18.0
-urllib3==1.26.4
 virtualenv==20.0.25
 wcwidth==0.1.7
 webencodings==0.5.1
