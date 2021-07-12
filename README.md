@@ -30,7 +30,7 @@ Similarily, for songs I had used the same technique, but this time I created a t
 ![Artists Recommendation](demo/recommend_artists.gif)
 ![Songs Recommendation](demo/recommend_songs.gif)
 
-5. Application Stack
+### Application Stack
 
 - Backend: Flask
 - API used: Spotify-API
