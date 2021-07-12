@@ -45,6 +45,10 @@ git clone https://github.com/Srijha09/Rhythmify.git
 ```
 
 - Create a Developers account and set up a new project in Spotify API Dashboard https://developer.spotify.com/dashboard/login
+- Install requirements
+```
+$ pip install -r requirements.txt
+```
 - Once the application is cloned and the account is setup, run the flask app
 ```
 $ export FLASK_APP="app_name"
