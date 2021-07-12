@@ -38,7 +38,7 @@ Similarily, for songs I had used the same technique, but this time I created a t
 - Visualization: Plotly
 - Deployment: Heroku
 
-## How to run the application?
+### How to run the application?
 - Clone the repo into your local machine
 ```
 git clone https://github.com/Srijha09/Rhythmify.git
