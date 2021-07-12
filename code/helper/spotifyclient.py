@@ -19,7 +19,7 @@ class SpotifyClient:
     SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
     SCOPE = "playlist-modify-public playlist-modify-private playlist-read-private user-top-read"
 
-    CLIENT_SIDE_URL = '127.0.0.1'
+    CLIENT_SIDE_URL = 'http://127.0.0.1'
 
     def __init__(self, client_id, client_secret, client_side_url=CLIENT_SIDE_URL, port=None):
         self.client_id = client_id
