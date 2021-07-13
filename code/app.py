@@ -299,13 +299,9 @@ def viz():
 
 
 
-production = app.config.from_object('config.ProdConfig')
+#production = app.config.from_object('config.ProdConfig')
 
 if __name__ == '__main__':
-    if production:
-        app.run()
-    else:
-        app.run(host='127.0.0.1', port=5000, debug=True)
-        # app.run())
+    app.run(debug=True)
    
     
