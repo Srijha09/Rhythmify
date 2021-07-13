@@ -48,7 +48,7 @@ def error500(error):
     return "Sorry! There's a bug. Try going back to homepage and reloading", 500
 
 #---------------------------------HOME PAGE-----------------------------------------
-spotify_client = SpotifyClient(client_id, client_secret, port=5000)
+spotify_client = SpotifyClient(client_id, client_secret)
 @app.route("/", methods=['POST', 'GET'])
 def login():
     """
