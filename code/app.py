@@ -176,7 +176,7 @@ def recommend_artists():
 
 @app.route('/result_artists', methods=['GET','POST'])
 def result_artists():
-    results = pickle.load(open('code/notebooks/cos_sim_results', 'rb'))
+    results = pickle.load(open('notebooks/cos_sim_results', 'rb'))
     def recommend_artist(item_id, num):
         recs = results[item_id][:num]
         print(recs)
@@ -198,7 +198,7 @@ def recommend_songs():
 
 @app.route('/result_songs', methods=['GET','POST'])
 def result_songs():
-    results1 = pickle.load(open('code/notebooks/cos_sim_results_songs', 'rb'))
+    results1 = pickle.load(open('notebooks/cos_sim_results_songs', 'rb'))
     def recommend_songs(item_id, num):
         recs = results1[item_id][:num]   
         print(recs)
