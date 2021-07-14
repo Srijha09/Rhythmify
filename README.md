@@ -32,9 +32,10 @@ Similarily, for songs I had used the same technique, but this time I created a t
 
 ### Application Stack
 
-- Backend: Flask
+- Backend: Flask, Jinja2, Python
 - API used: Spotify-API
-- Frontend: HTML, CSS
+- Frontend: HTML, CSS, Javascript
+- Libraries: Numpy, Pandas, Scikit-Learn
 - Visualization: Plotly
 - Deployment: Heroku
 
