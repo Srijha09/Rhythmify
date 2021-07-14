@@ -60,6 +60,7 @@ $ flask run
 
 
 ### Code Improvements (In progress)
+- Expand the Spotify Dataset for more songs
 - Create Flask Blueprints 
 - Lyric2Vec and Audio Modelling Recommendation system
 - Mood Based Song Prediction
