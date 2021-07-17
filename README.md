@@ -1,6 +1,9 @@
 # Rhythmify - Spotify Music Analytics 
 Rhythmify is a music analytics Flask web application that leverages the Spotify API for generating playlists based on recommendations and helps us in creating a user analysis of their music tastes. This web application is deployed on Heroku.
 
+Check out my ![medium article](https://medium.com/@srijha.1999/rhythmify-spotify-music-analytics-d3c52124c8f7) as well
+
+
 ## Table of Contents
 - [Features of the application](###Features-of-the-application)
 - [Demo of the application](###Demo-of-the-application)
